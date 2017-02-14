@@ -30,23 +30,9 @@ class Simple:
             self.generate_system_utterance()
             self.wait_for_user_utterance()
             time.sleep(0.5)
+            self.check_end_state()
             self.check_state()
 
-    def check_state(self):
-        for state_rule in self.patterns:
-            if self.states_match(state_rule[0]):
-                if self.patterns_match(state_rule):
-                    self.current_state = state_rule[3]
-                    return
-                else:
-                    self.error_message = state_rule[2]
-
-    def states_match(self, pattern_state):
-        return self.current_state == pattern_state
-
-    def patterns_match(self, pattern_tupple):
-        self.match_found = re.match(pattern_tupple[1], self.user_utterance)
-        return self.match_found
 
     def generate_system_utterance(self):
         self.check_match_found()
@@ -64,4 +50,24 @@ class Simple:
 
     def check_for_quit(self):
         if self.user_utterance.find('quit') >= 0:
+            self.quit = True
+
+    def check_state(self):
+        for state_rule in self.patterns:
+            if self.states_match(state_rule[0]):
+                if self.patterns_match(state_rule):
+                    self.current_state = state_rule[3]
+                    return
+                else:
+                    self.error_message = state_rule[2]
+
+    def states_match(self, pattern_state):
+        return self.current_state == pattern_state
+
+    def patterns_match(self, pattern_tupple):
+        self.match_found = re.match(pattern_tupple[1], self.user_utterance)
+        return self.match_found
+
+    def check_end_state(self):
+        if self.current_state == 'end':
             self.quit = True

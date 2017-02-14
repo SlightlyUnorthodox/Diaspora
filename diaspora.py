@@ -2,7 +2,7 @@
 
 from collections import OrderedDict
 from nltk import chat
-from lib import StateBasedDialogue
+from lib import test
 from lib import Preliminator
 
 class DialogueInterface():
@@ -17,7 +17,7 @@ class DialogueInterface():
             ('4. NLTK: suntsu', 'chat.suntsu_chat()'),
             ('5. NLTK: zen', 'chat.zen_chat()'),
             ('6. Preliminator', 'Preliminator.start()'),
-            ('7. StateBasedChat: test', 'self._exit_statement()'),
+            ('7. StateBasedChat: test', 'test.demo()'),
         ])
 
     def start(self):
